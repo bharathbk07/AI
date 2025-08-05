@@ -226,6 +226,19 @@
                 />
               </label>
             </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#111418] text-base font-medium leading-normal pb-2">Test Template</p>
+                <select
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] focus:outline-0 focus:ring-0 border border-[#dbe0e6] bg-white focus:border-[#dbe0e6] h-14 placeholder:text-[#60758a] p-[15px] text-base font-normal leading-normal"
+                >
+                  <option value="">Select a Template</option>
+                  <option value="load-test">Load Test</option>
+                  <option value="stress-test">Stress Test</option>
+                  <option value="spike-test">Spike Test</option>
+                </select>
+              </label>
+            </div>
             <div class="flex px-4 py-3">
               <div class="flex h-10 flex-1 items-center justify-center rounded-lg bg-[#f0f2f5] p-1">
                 <label
@@ -261,6 +274,26 @@
                                 <label class="flex flex-col w-full">
                                     <p class="text-[#111418] text-base font-medium leading-normal pb-2">GitHub Branch Name</p>
                                     <input placeholder="Enter GitHub branch name" class="md-input" />
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Environment Configuration Section -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-2 border-b pb-2">
+                                <span class="material-icons text-[#60758a]">public</span>
+                                <h3 class="text-[#111418] text-lg font-medium">Environment Configuration</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <label class="flex flex-col w-full">
+                                    <p class="text-[#111418] text-base font-medium leading-normal pb-2">Environment</p>
+                                    <select class="md-input">
+                                        <option value="">Select Environment</option>
+                                        <option value="dev">Development</option>
+                                        <option value="qa">QA</option>
+                                        <option value="staging">Staging</option>
+                                        <option value="prod">Production</option>
+                                    </select>
                                 </label>
                             </div>
                         </div>
@@ -326,6 +359,26 @@
                                 </label>
                             </div>
                         </div>
+
+                        <!-- Test Scheduling Section -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-2 border-b pb-2">
+                                <span class="material-icons text-[#60758a]">schedule</span>
+                                <h3 class="text-[#111418] text-lg font-medium">Test Schedule</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex gap-4">
+                                    <label class="flex flex-col flex-1">
+                                        <p class="text-[#111418] text-base font-medium leading-normal pb-2">Start Date</p>
+                                        <input type="date" class="md-input" />
+                                    </label>
+                                    <label class="flex flex-col flex-1">
+                                        <p class="text-[#111418] text-base font-medium leading-normal pb-2">Start Time</p>
+                                        <input type="time" class="md-input" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="flex-1 bg-[#f8fafc] rounded-lg p-6 m-4">
@@ -361,6 +414,10 @@ number_of_users: 0
             </div>
             <div class="flex justify-end gap-4 p-6 border-t border-gray-100">
                 <button class="md-button md-button-primary">
+                    <span class="material-icons mr-2">schedule</span>
+                    Schedule Test
+                </button>
+                <button class="md-button md-button-primary">
                     <span class="material-icons mr-2">save</span>
                     Save Configuration
                 </button>
@@ -368,15 +425,6 @@ number_of_users: 0
                     <span class="material-icons mr-2">edit</span>
                     Update
                 </button>
-                <button class="md-button bg-green-600 text-white hover:bg-green-700">
-                    <span class="material-icons mr-2">download</span>
-                    Download YAML
-                </button>
-                <label class="md-button bg-orange-600 text-white hover:bg-orange-700 cursor-pointer">
-                    <span class="material-icons mr-2">upload</span>
-                    Upload YAML
-                    <input type="file" accept=".yml,.yaml" class="hidden">
-                </label>
             </div>
           </div>
         </div>
