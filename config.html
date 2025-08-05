@@ -1,0 +1,387 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Performance Test Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        /* Primary colors */
+        --md-primary-light: #42a5f5;
+        --md-primary: #1976d2;
+        --md-primary-dark: #1565c0;
+        
+        /* Secondary colors */
+        --md-secondary-light: #ff4081;
+        --md-secondary: #f50057;
+        --md-secondary-dark: #c51162;
+        
+        /* Neutral colors */
+        --md-background: #fafafa;
+        --md-surface: #ffffff;
+        --md-surface-variant: #f5f7fa;
+        
+        /* Semantic colors */
+        --md-success: #4caf50;
+        --md-warning: #ff9800;
+        --md-error: #f44336;
+        
+        /* Text colors */
+        --md-text-primary: rgba(0,0,0,0.87);
+        --md-text-secondary: rgba(0,0,0,0.60);
+        --md-text-disabled: rgba(0,0,0,0.38);
+        
+        /* Elevation */
+        --md-elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        --md-elevation-2: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
+        
+        /* Animation */
+        --md-transition-standard: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        color: var(--md-text-primary);
+        background: var(--md-background);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .md-typography-h1 {
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+
+      .md-typography-h2 {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        line-height: 1.3;
+      }
+
+      .md-typography-subtitle1 {
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.5;
+      }
+
+      .md-typography-body1 {
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+        line-height: 1.5;
+      }
+
+      .md-card {
+        background: var(--md-surface);
+        border-radius: 8px;
+        box-shadow: var(--md-elevation-1);
+        transition: box-shadow var(--md-transition-standard);
+      }
+
+      .md-card:hover {
+        box-shadow: var(--md-elevation-2);
+      }
+
+      .md-input {
+        height: 56px;
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.23);
+        padding: 16px;
+        font-size: 16px;
+        transition: all var(--md-transition-standard);
+        background: var(--md-surface);
+      }
+
+      .md-input:hover {
+        border-color: var(--md-text-primary);
+      }
+
+      .md-input:focus {
+        border-color: var(--md-primary);
+        box-shadow: 0 0 0 2px rgba(25,118,210,0.2);
+        outline: none;
+      }
+
+      .md-button {
+        height: 36px;
+        padding: 0 16px;
+        border-radius: 4px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--md-transition-standard);
+        text-transform: uppercase;
+        min-width: 64px;
+      }
+
+      .md-button-primary {
+        background: var(--md-primary);
+        color: white;
+      }
+
+      .md-button-primary:hover {
+        background: var(--md-primary-dark);
+      }
+
+      /* Add responsive breakpoints */
+      @media (max-width: 768px) {
+        .layout-content-container {
+          padding: 16px;
+        }
+        
+        .md-typography-h1 {
+          font-size: 28px;
+        }
+
+        .form-section {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: Lexend, "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f5] px-10 py-3">
+          <div class="flex items-center gap-4 text-[#111418]">
+            <div class="size-4">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M13.8261 30.5736C16.7203 29.8826 20.2244 29.4783 24 29.4783C27.7756 29.4783 31.2797 29.8826 34.1739 30.5736C36.9144 31.2278 39.9967 32.7669 41.3563 33.8352L24.8486 7.36089C24.4571 6.73303 23.5429 6.73303 23.1514 7.36089L6.64374 33.8352C8.00331 32.7669 11.0856 31.2278 13.8261 30.5736Z"
+                  fill="currentColor"
+                ></path>
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M39.998 35.764C39.9944 35.7463 39.9875 35.7155 39.9748 35.6706C39.9436 35.5601 39.8949 35.4259 39.8346 35.2825C39.8168 35.2403 39.7989 35.1993 39.7813 35.1602C38.5103 34.2887 35.9788 33.0607 33.7095 32.5189C30.9875 31.8691 27.6413 31.4783 24 31.4783C20.3587 31.4783 17.0125 31.8691 14.2905 32.5189C12.0012 33.0654 9.44505 34.3104 8.18538 35.1832C8.17384 35.2075 8.16216 35.233 8.15052 35.2592C8.09919 35.3751 8.05721 35.4886 8.02977 35.589C8.00356 35.6848 8.00039 35.7333 8.00004 35.7388C8.00004 35.739 8 35.7393 8.00004 35.7388C8.00004 35.7641 8.0104 36.0767 8.68485 36.6314C9.34546 37.1746 10.4222 37.7531 11.9291 38.2772C14.9242 39.319 19.1919 40 24 40C28.8081 40 33.0758 39.319 36.0709 38.2772C37.5778 37.7531 38.6545 37.1746 39.3151 36.6314C39.9006 36.1499 39.9857 35.8511 39.998 35.764ZM4.95178 32.7688L21.4543 6.30267C22.6288 4.4191 25.3712 4.41909 26.5457 6.30267L43.0534 32.777C43.0709 32.8052 43.0878 32.8338 43.104 32.8629L41.3563 33.8352C43.104 32.8629 43.1038 32.8626 43.104 32.8629L43.1051 32.865L43.1065 32.8675L43.1101 32.8739L43.1199 32.8918C43.1276 32.906 43.1377 32.9246 43.1497 32.9473C43.1738 32.9925 43.2062 33.0545 43.244 33.1299C43.319 33.2792 43.4196 33.489 43.5217 33.7317C43.6901 34.1321 44 34.9311 44 35.7391C44 37.4427 43.003 38.7775 41.8558 39.7209C40.6947 40.6757 39.1354 41.4464 37.385 42.0552C33.8654 43.2794 29.133 44 24 44C18.867 44 14.1346 43.2794 10.615 42.0552C8.86463 41.4464 7.30529 40.6757 6.14419 39.7209C4.99695 38.7775 3.99999 37.4427 3.99999 35.7391C3.99999 34.8725 4.29264 34.0922 4.49321 33.6393C4.60375 33.3898 4.71348 33.1804 4.79687 33.0311C4.83898 32.9556 4.87547 32.8935 4.9035 32.8471C4.91754 32.8238 4.92954 32.8043 4.93916 32.7889L4.94662 32.777L4.95178 32.7688ZM35.9868 29.004L24 9.77997L12.0131 29.004C12.4661 28.8609 12.9179 28.7342 13.3617 28.6282C16.4281 27.8961 20.0901 27.4783 24 27.4783C27.9099 27.4783 31.5719 27.8961 34.6383 28.6282C35.082 28.7342 35.5339 28.8609 35.9868 29.004Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+            <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">PerfTest Portal</h2>
+          </div>
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-9">
+              <a class="text-[#111418] text-sm font-medium leading-normal hover:text-[#1976d2] transition-colors" href="app.html">Dashboard</a>
+              <a class="text-[#111418] text-sm font-medium leading-normal hover:text-[#1976d2] transition-colors" href="#">Tests</a>
+              <a class="text-[#111418] text-sm font-medium leading-normal hover:text-[#1976d2] transition-colors" href="reports.html">Reports</a>
+              <a class="text-[#111418] text-sm font-medium leading-normal hover:text-[#1976d2] border-b-2 border-[#1976d2]" href="config.html">Configurations</a>
+            </div>
+            <button
+              class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#f0f2f5] text-[#111418] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5"
+            >
+              <div class="text-[#111418]" data-icon="Bell" data-size="20px" data-weight="regular">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                  <path
+                    d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"
+                  ></path>
+                </svg>
+              </div>
+            </button>
+            <div
+              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA8Un4Y6wYQ-69zfrFqX1RowV3KIcRyBaj2yU4Y8BNOk7B8fivwxuG-M2w7hMJHUPq6IcXoESfieQoEQf8Bix3TOtaC2nB0aqr9f2VbHEOVVabD9lfH0MM8jyqxFIQT7p8nvmrWPg7dCwh1DsL_jVbg9eM7nSnp2UkpagYdoHHJ_o5p1vbeuGw0GyTdtICByyZObfH9X7yAT8U1nxYUY0yBw-Z6aO2ePgKIklIqXxw-gnevSTH7JONyn-zQL50Oexa8qVkVuQopwlZd");'
+           ></div>
+          </div>
+        </header>
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap gap-2 p-4">
+              <a class="text-[#60758a] text-base font-medium leading-normal" href="#">Dashboard</a>
+              <span class="text-[#60758a] text-base font-medium leading-normal">/</span>
+              <span class="text-[#111418] text-base font-medium leading-normal">Test Configuration</span>
+            </div>
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <p class="text-[#111418] tracking-light text-[32px] font-bold leading-tight min-w-72">Test Configuration: E-commerce Checkout Performance</p>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#111418] text-base font-medium leading-normal pb-2">Test Name</p>
+                <input
+                    class="form-input w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] focus:outline-0 focus:ring-0 border border-[#dbe0e6] bg-white focus:border-[#dbe0e6] h-14 placeholder:text-[#60758a] p-[15px] text-base font-normal leading-normal"
+                    value="Peak Load Test - E-commerce Checkout"
+                />
+              </label>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-[#111418] text-base font-medium leading-normal pb-2">Test Description</p>
+                <input
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] focus:outline-0 focus:ring-0 border border-[#dbe0e6] bg-white focus:border-[#dbe0e6] h-14 placeholder:text-[#60758a] p-[15px] text-base font-normal leading-normal"
+                  value=""
+                />
+              </label>
+            </div>
+            <div class="flex px-4 py-3">
+              <div class="flex h-10 flex-1 items-center justify-center rounded-lg bg-[#f0f2f5] p-1">
+                <label
+                  class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 has-[:checked]:bg-white has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-[#111418] text-[#60758a] text-sm font-medium leading-normal"
+                >
+                  <span class="truncate">Simple Mode</span>
+                  <input type="radio" name="79ae9221-8573-4294-94df-ed99e0981328" class="invisible w-0" value="Simple Mode" />
+                </label>
+                <label
+                  class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 has-[:checked]:bg-white has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-[#111418] text-[#60758a] text-sm font-medium leading-normal"
+                >
+                  <span class="truncate">Advanced Mode</span>
+                  <input type="radio" name="79ae9221-8573-4294-94df-ed99e0981328" class="invisible w-0" value="Advanced Mode" checked="" />
+                </label>
+              </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="flex-1 p-4">
+                    <h2 class="text-[#111418] text-[22px] font-bold leading-tight tracking-[-0.015em] text-center pb-6">Advanced Configuration</h2>
+                    <div class="flex flex-col space-y-8">
+                        <!-- Source Management Section -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-2 border-b pb-2">
+                                <span class="material-icons text-[#60758a]">source</span>
+                                <h3 class="text-[#111418] text-lg font-medium">Source Management</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <label class="flex flex-col w-full">
+                                    <p class="text-[#111418] text-base font-medium leading-normal pb-2">GitHub Repo Name</p>
+                                    <input placeholder="Enter GitHub repo name" class="md-input" />
+                                </label>
+                                <label class="flex flex-col w-full">
+                                    <p class="text-[#111418] text-base font-medium leading-normal pb-2">GitHub Branch Name</p>
+                                    <input placeholder="Enter GitHub branch name" class="md-input" />
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Project Details Section -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-2 border-b pb-2">
+                                <span class="material-icons text-[#60758a]">description</span>
+                                <h3 class="text-[#111418] text-lg font-medium">Project Details</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <label class="flex flex-col w-full">
+                                    <p class="text-[#111418] text-base font-medium leading-normal pb-2">Project Name</p>
+                                    <input placeholder="Enter project name" class="md-input" />
+                                </label>
+                                <label class="flex flex-col w-full">
+                                    <p class="text-[#111418] text-base font-medium leading-normal pb-2">Application Name</p>
+                                    <input placeholder="Enter application name" class="md-input" />
+                                </label>
+                                <label class="flex flex-col w-full">
+                                    <p class="text-[#111418] text-base font-medium leading-normal pb-2">Version</p>
+                                    <input placeholder="Enter version" class="md-input" />
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Report Publishing Section -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-2 border-b pb-2">
+                                <span class="material-icons text-[#60758a]">mail</span>
+                                <h3 class="text-[#111418] text-lg font-medium">Report Publishing</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <label class="flex flex-col w-full">
+                                    <p class="text-[#111418] text-base font-medium leading-normal pb-2">Email ID</p>
+                                    <input placeholder="Enter email ID" class="md-input" />
+                                </label>
+                                <label class="flex flex-col w-full">
+                                    <p class="text-[#111418] text-base font-medium leading-normal pb-2">Email Subject</p>
+                                    <input placeholder="Enter email subject" class="md-input" />
+                                </label>
+                                <label class="flex flex-col w-full">
+                                    <p class="text-[#111418] text-base font-medium leading-normal pb-2">Attachments</p>
+                                    <input placeholder="Enter attachments" class="md-input" />
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Test Configuration Section -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-2 border-b pb-2">
+                                <span class="material-icons text-[#60758a]">speed</span>
+                                <h3 class="text-[#111418] text-lg font-medium">Test Configuration</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <label class="flex flex-col w-full">
+                                    <p class="text-[#111418] text-base font-medium leading-normal pb-2">Load Generator Configuration</p>
+                                    <input placeholder="Enter load generator configuration" class="md-input" />
+                                </label>
+                                <label class="flex flex-col w-full">
+                                    <p class="text-[#111418] text-base font-medium leading-normal pb-2">Number of Users</p>
+                                    <input placeholder="Enter number of users" class="md-input" type="number" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 bg-[#f8fafc] rounded-lg p-6 m-4">
+                    <h2 class="text-[#111418] text-[22px] font-bold leading-tight tracking-[-0.015em] pb-1">YAML Configuration</h2>
+                    <p class="text-[#60758a] text-base font-medium leading-normal pb-3">Preview of your configuration in YAML format</p>
+                    <pre class="bg-[#f0f2f5] rounded-lg p-4 text-sm text-[#111418] overflow-x-auto whitespace-pre font-mono">
+email_id: ""
+email_subject: ""
+            
+attachments: []
+                
+project_name: ""
+application_name: ""
+version: ""
+                
+github_repo_name: ""
+github_branch_name: ""
+                
+load_generator_configuration: ""
+number_of_users: 0
+                    </pre>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 bg-white px-4 min-h-14">
+              <div class="text-[#111418] flex items-center justify-center rounded-lg bg-[#f0f2f5] shrink-0 size-10" data-icon="CheckCircle" data-size="24px" data-weight="regular">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                  <path
+                    d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-[#111418] text-base font-normal leading-normal flex-1 truncate">Test configuration saved successfully</p>
+            </div>
+            <div class="flex justify-end gap-4 p-6 border-t border-gray-100">
+                <button class="md-button md-button-primary">
+                    <span class="material-icons mr-2">save</span>
+                    Save Configuration
+                </button>
+                <button class="md-button bg-white border border-gray-200 text-gray-700 hover:bg-gray-50">
+                    <span class="material-icons mr-2">edit</span>
+                    Update
+                </button>
+                <button class="md-button bg-green-600 text-white hover:bg-green-700">
+                    <span class="material-icons mr-2">download</span>
+                    Download YAML
+                </button>
+                <label class="md-button bg-orange-600 text-white hover:bg-orange-700 cursor-pointer">
+                    <span class="material-icons mr-2">upload</span>
+                    Upload YAML
+                    <input type="file" accept=".yml,.yaml" class="hidden">
+                </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
