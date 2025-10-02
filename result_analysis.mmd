@@ -70,7 +70,7 @@ flowchart TB
     appinsights --> monitoring_adapter
     neoload_parser -- Raw NeoLoad test results ingestion --> normalizer
     monitoring_adapter -- Fetch and standardize monitoring data --> normalizer
-    normalizer -- Deliver unified data for task breakdown --> decomposer
+    normalizer -- Deliver unified data for task breakdown --> context_mgr
     decomposer -- Task Breakdown --> scheduler
     decomposer <--> context_mgr
     scheduler -- PUBLISH Task Request --> task_queue
@@ -79,15 +79,14 @@ flowchart TB
     sec_rbac --> api_gateway
     sec_zt --> api_gateway
     sec_dlp --> api_gateway
-    api_gateway --> LLM_Agent_Pool
-    LLM_Agent_Pool -- PUBLISH Result --> result_queue
+    api_gateway <--> LLM_Agent_Pool
+    api_gateway -- PUBLISH Result --> result_queue
     LLM_Agent_Pool -. TELEMETRY .-> metrics
-    result_queue -- MESSAGE --> consensus
+    result_queue -- MESSAGE --> context_mgr
     context_mgr <--> consensus
-    consensus -- Final Decision --> formatter
     consensus -. "Low-Confidence Flag" .-> ticket
     consensus -. Task Error .-> error_mgr
-    consensus -- ASYNC Result for Scoring --> scorer
+    task_queue -- ASYNC Result for Scoring --> scorer
     scorer -- Assessed Output --> anonymizer
     scorer -. "Low-Accuracy Flag" .-> ticket
     anonymizer --> logger
@@ -96,10 +95,10 @@ flowchart TB
     dlp -- Apply DLP policies --> infosec
     infosec -- InfoSec final approval --> formatter
     error_mgr -. Error Feedback and Corrective Action .-> feedback_mgr
-    feedback_mgr --> scheduler & decomposer & context_mgr
+    feedback_mgr --> context_mgr
     ticket --> reviewdash
     reviewdash -- Manual Corrections/Feedback --> feedback_mgr
-    critiquellm -. Automated Critique Flag .-> reviewdash
+    api_gateway -. Automated Critique Flag .-> reviewdash
     formatter -- Formatted Output --> apiserver
     apiserver -- Serves Evidence/Reports/Dashboards --> evidence & report & dashboard
     apiserver -. API Telemetry .-> metrics
@@ -107,7 +106,6 @@ flowchart TB
     auditstore -- Audit trail visibility --> monboard
     kub -- Deploys and Scales Agent Workers --> LLM_Agent_Pool
     critiquellm -- Trigger refined analyses --> perfllm & healthllm & crossllm & rootcausellm
-    
     style LLM_Service_Gateway fill:#BBDEFB,stroke:#1976D2
     style LLM_Agent_Pool fill:#E1BEE7,stroke:#7B1FA2
     style Data_Sources fill:#C8E6C9,stroke:#388E3C
