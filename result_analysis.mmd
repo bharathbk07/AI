@@ -1,2 +1,129 @@
 %% This is a Mermaid diagram file for result analysis
 %% Add your Mermaid diagram code below
+
+---
+config:
+  layout: elk
+---
+flowchart TB
+ subgraph Data_Sources["Data_Sources"]
+        neoload("NeoLoad Result File")
+        appd("AppDynamics API")
+        appinsights("AppInsights API")
+  end
+ subgraph Ingestion_Preprocessing["Ingestion & Preprocessing"]
+        neoload_parser("NeoLoad Parser")
+        monitoring_adapter("Monitoring Data Adapter")
+        normalizer("Data Normalizer")
+  end
+ subgraph Message_Broker["Message Broker (e.g., Kafka)"]
+        task_queue[("Task_Queue")]
+        result_queue[("Result_Queue")]
+  end
+ subgraph Orchestration["Orchestration"]
+        decomposer("Task Decomposer")
+        context_mgr("Context Manager")
+        scheduler("Task Scheduler")
+        consensus("Consensus Resolver")
+        feedback_mgr("Feedback Handler")
+        error_mgr("Error Manager")
+  end
+ subgraph LLM_Agent_Pool["LLM Agent Pool (Workers)"]
+        perfllm("Performance Analysis LLM")
+        healthllm("Health Summarization LLM")
+        crossllm("Cross-Correlation LLM")
+        rootcausellm("Root Cause LLM")
+        critiquellm("Automated Critique LLM")
+  end
+ subgraph LLM_Service_Gateway["LLM Service Gateway (Azure Private Endpoints)"]
+        sec_rbac("RBAC/SSO/MFA Enforcement")
+        sec_zt("Zero Trust / Network Seg.")
+        sec_dlp("Data Isolation Policy")
+        api_gateway("OpenAPI / Access Gateway")
+  end
+ subgraph Azure_Cloud["Azure_Cloud"]
+        kub("Kubernetes Orchestration")
+        LLM_Service_Gateway
+        LLM_Agent_Pool
+  end
+ subgraph Validation_Compliance["Validation & Compliance"]
+        scorer("Accuracy Scorer")
+        anonymizer("Data Anonymizer")
+        logger("Audit Logger")
+        gdpr("Compliance (GDPR/ISO)")
+  end
+ subgraph DLP_InfoSec["DLP & InfoSec Approval"]
+        dlp("DLP Engine")
+        infosec("InfoSec Approval")
+  end
+ subgraph Manual_Review["Manual Review System"]
+        ticket("Ticketing (Jira/ServiceNow)")
+        reviewdash("Manual Review Dashboard")
+  end
+ subgraph API_Service["API Service Layer"]
+        formatter("Output Formatter")
+        apiserver("User/API Endpoint")
+        evidence("Evidence Packets")
+        report("Formatted Reports")
+        dashboard("Dashboards")
+  end
+ subgraph Observability["Observability"]
+        metrics("Metrics Collector")
+        auditstore("Audit Log Store")
+        monboard("Monitoring Dashboard")
+  end
+    neoload --> neoload_parser
+    appd --> monitoring_adapter
+    appinsights --> monitoring_adapter
+    neoload_parser -- Raw NeoLoad test results ingestion --> normalizer
+    monitoring_adapter -- Fetch and standardize monitoring data --> normalizer
+    normalizer -- Deliver unified data for task breakdown --> decomposer
+    decomposer -- Task Breakdown --> scheduler
+    decomposer <--> context_mgr
+    scheduler -- PUBLISH Task Request --> task_queue
+    scheduler -. Task Error .-> error_mgr
+    task_queue -- MESSAGE --> sec_rbac
+    sec_rbac --> api_gateway
+    sec_zt --> api_gateway
+    sec_dlp --> api_gateway
+    api_gateway --> LLM_Agent_Pool
+    LLM_Agent_Pool -- PUBLISH Result --> result_queue
+    LLM_Agent_Pool -. TELEMETRY .-> metrics
+    result_queue -- MESSAGE --> consensus
+    context_mgr <--> consensus
+    consensus -- Final Decision --> formatter
+    consensus -. "Low-Confidence Flag" .-> ticket
+    consensus -. Task Error .-> error_mgr
+    consensus -- ASYNC Result for Scoring --> scorer
+    scorer -- Assessed Output --> anonymizer
+    scorer -. "Low-Accuracy Flag" .-> ticket
+    anonymizer --> logger
+    logger --> gdpr & auditstore
+    gdpr -- Enforce GDPR/ISO compliance --> dlp
+    dlp -- Apply DLP policies --> infosec
+    infosec -- InfoSec final approval --> formatter
+    error_mgr -. Error Feedback and Corrective Action .-> feedback_mgr
+    feedback_mgr --> scheduler & decomposer & context_mgr
+    ticket --> reviewdash
+    reviewdash -- Manual Corrections/Feedback --> feedback_mgr
+    critiquellm -. Automated Critique Flag .-> reviewdash
+    formatter -- Formatted Output --> apiserver
+    apiserver -- Serves Evidence/Reports/Dashboards --> evidence & report & dashboard
+    apiserver -. API Telemetry .-> metrics
+    metrics -- Display metrics dashboard --> monboard
+    auditstore -- Audit trail visibility --> monboard
+    kub -- Deploys and Scales Agent Workers --> LLM_Agent_Pool
+    critiquellm -- Trigger refined analyses --> perfllm & healthllm & crossllm & rootcausellm
+    
+    style LLM_Service_Gateway fill:#BBDEFB,stroke:#1976D2
+    style LLM_Agent_Pool fill:#E1BEE7,stroke:#7B1FA2
+    style Data_Sources fill:#C8E6C9,stroke:#388E3C
+    style Ingestion_Preprocessing fill:#B2DFDB,stroke:#00796B
+    style Orchestration fill:#FFCC80,stroke:#F57C00
+    style Message_Broker fill:#F8BBD0,stroke:#AD1457
+    style Azure_Cloud fill:#E3F2FD,stroke:#1565C0
+    style Validation_Compliance fill:#FFCDD2,stroke:#D32F2F
+    style DLP_InfoSec fill:#EF9A9A,stroke:#C62828
+    style Manual_Review fill:#FFF9C4,stroke:#FBC02D
+    style API_Service fill:#C8E6C9,stroke:#388E3C
+    style Observability fill:#DCEDC8,stroke:#689F38
